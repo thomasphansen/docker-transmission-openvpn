@@ -15,7 +15,11 @@ RUN apt-get update \
     && add-apt-repository ppa:transmissionbt/ppa \
     && apt-get update \
     && apt-get install -y transmission-cli transmission-common transmission-daemon \
-    && apt-get install -y openvpn curl rar unrar zip unzip wget \
+    && apt-get install -y curl rar unrar zip unzip wget apt-transport-https \
+    && wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg | sudo apt-key add - \
+    && sh -c 'echo "deb https://swupdate.openvpn.net/apt trusty main" > /etc/apt/sources.list.d/openvpn.list' \
+    && apt-get update \
+    && apt-get install -y openvpn \
     && curl -sLO https://github.com/Yelp/dumb-init/releases/download/v1.0.1/dumb-init_1.0.1_amd64.deb \
     && dpkg -i dumb-init_*.deb \
     && rm -rf dumb-init_*.deb \
