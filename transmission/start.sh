@@ -11,9 +11,7 @@ export TRANSMISSION_BIND_ADDRESS_IPV4=$4
 echo "Generating transmission settings.json from env variables"
 # Ensure TRANSMISSION_HOME is created
 mkdir -p ${TRANSMISSION_HOME}
-if [ ! -f ${TRANSMISSION_HOME}/settings.json ]; then
-	dockerize -template /etc/transmission/settings.tmpl:${TRANSMISSION_HOME}/settings.json /bin/true
-fi
+dockerize -template /etc/transmission/settings.tmpl:${TRANSMISSION_HOME}/settings.json /bin/true
 
 if [ ! -e "/dev/random" ]; then
   # Avoid "Fatal: no entropy gathering module detected" error
